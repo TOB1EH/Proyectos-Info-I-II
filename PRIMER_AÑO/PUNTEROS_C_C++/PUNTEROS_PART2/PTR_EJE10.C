@@ -15,8 +15,10 @@ void pairs (int *); // func para posiciones pares
 /*--- FUNCION PRINCIPAL MAIN ---*/
 int main(int argc, char const *argv[])
 {
+    /* Declaracion e inicializacion de varibles */
     int values[TAM] = {0};
     int *pointer = values;
+    
     void (*ptrAFunc) (int *); // puntero a funcion, no retorna valor y recibe un puntero de tipo char
     ptrAFunc = load; // asigna la direccion de mem. de la func "load" al puntero "ptrAFunc"
     (*ptrAFunc)(pointer); // invocacion de la funcion apuntada

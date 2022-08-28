@@ -2,9 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 /*--- DIRECTIVAS ---*/
 #define TAM 10 // tamaño arrays
 #define ROJO_T "\x1b[31m" // texto de color rojo
+#define RESET_COLOR "\x1b[0m" // resetear propiedades de colores
+
 /*--- FUNCION PRINCIPAL MAIN ---*/
 int main(int argc, char const *argv[])
 {
@@ -30,10 +33,12 @@ int main(int argc, char const *argv[])
     {
         printf("%d\t", *(ptrVector[ii]));
     } // for para imprimir los valores a los que apuntan los punteros del array de punteros
-    printf( ROJO_T "\nPromedio: %.2f\n\n\n"
-            "Posiciones de memoria de los valores almacenados: ", ((float) suma/TAM)); // se castean los valores a .flotante para el promedio
+    printf("\n");
+    printf( ROJO_T "\nPromedio: %.2f\n\n\n" RESET_COLOR
+            "Posiciones de memoria de los valores almacenados:\n", ((float) suma/TAM)); // se castean los valores a .flotante para el promedio
     for ( ii = 0; ii < TAM; ii++)
     {
         printf("%x\t", (ptrVector[ii]));
     } // for para imrpimir las direcciones de memorias alacenadas de cada elemento
+    printf("\n");
 }

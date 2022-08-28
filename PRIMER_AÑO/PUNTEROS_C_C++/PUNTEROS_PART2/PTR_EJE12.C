@@ -4,6 +4,8 @@
 
 /*--- DIRECTIVAS ---*/
 #define TAM 10 // directiva tamaño para el arreglo
+#define CYAN_T "\x1b[36m" // color cyan para texto
+#define RESET_COLOR "\x1b[0m" // resetear propiedades de colores
 
 /*--- PROTOTIPO DE FUNCIONES ---*/
 void load (float *); // carga los datos del arreglo
@@ -67,7 +69,7 @@ void menu (float *ptr)
     void (*ptrAFunc) (float *);
     do // ciclo repetitivo do-while
     {
-        printf("\nMenu de opciones:\n"
+        printf( CYAN_T "\nMenu de opciones:\n" RESET_COLOR
                 "a. Cantidad de saldos cargados.\n"
                 "b. Promedio de saldos.\n"
                 "c. Cantidad de saldos menores al promedio.\n"
