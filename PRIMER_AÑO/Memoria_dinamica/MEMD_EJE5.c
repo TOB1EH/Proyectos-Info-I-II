@@ -3,22 +3,26 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+/*--- PROTOTIPO DE FUNCIONES ---*/
+void print (char *, int *);
+
 /*--- FUNCION PRINCIPAL MAIN ---*/
 int main(int argc, char const *argv[])
 {
     /* Declaracion e inicializacion de variables */
-    int ii = 0, n1 = 0, n2 = 0, stop_while = 0;
-    char *p = NULL, val = 0 , resp = 0;
-
-    printf("Ingrese la cantidad de elementos que va a ingresar: ");
+    char *p = NULL, val = 0, resp = 0;
+    int n1 = 0, n2 = 0, ii = 0, stop_while = 0;
+    
+    printf("Cantidad de elementos que va a ingresar: ");
     scanf("%d", &n1);
-    p = (char *) malloc(n1 * sizeof(char)); // invocacion malloc
+    void (*ptrAFunc) (char *, int *); // puntero a funcion
+    p = (char *) malloc(n1 * sizeof(char));
     if (p == NULL)
     {
         printf("\nMemoria insuficiente...\n");
-        exit(0); // si no hay memoria finaliza el programa
-    } // if
-    else // si en cambio, la mmoria es suficiente, continua...
+        exit(0);
+    }
+    else
     {
         for (ii = 0; ii < n1; ii++)
         {
@@ -26,13 +30,10 @@ int main(int argc, char const *argv[])
             scanf(" %c", &val);
             *(p+ii) = val; // navega por las posiciones de memorias asignadas
         } // for
+        ptrAFunc = print;
         printf("Caracteres ingresados:\t");
-        for (ii = 0; ii < n1; ii++)
-        {
-            printf("%c\t", *(p+ii));
-        } // for
-        printf("\n");
-    } // else
+        (*ptrAFunc)(p, &n1);
+    }
     do
     {    
         printf("¿Desea ingresar mas caracteres (S/n)? ");
@@ -41,7 +42,7 @@ int main(int argc, char const *argv[])
         switch (resp)
         {
         case 's':
-            n1 = n1+n2; // n1 = al total de elementos ingresados por ultima vez
+
             printf("Cuantos caracteres mas desea ingresar: ");
             scanf("%d", &n2);
             // invocacion realloc
@@ -60,23 +61,31 @@ int main(int argc, char const *argv[])
                     scanf(" %c", &val);
                     *(p + ii + n1) = val;
                 } // for
+                n1 = n1+n2; // n1 = al total de elementos ingresados por ultima vez
                 printf("Caracteres ingresados en Total:\t");
-                for (ii = 0; ii < (n1+n2); ii++)
-                {
-                    printf("%c\t", *(p+ii));
-                } // for
-                printf("\n");
-            } // else
+                ptrAFunc = print;
+                (*ptrAFunc)(p, &n1);
+            }
             break;
         case 'n':
             printf("\nFinalizando el programa...\n");
-            stop_while = 1;
+            stop_while = 1; // finaliza el bucle while
             break;
         default:
             printf("\nIngreso una opcion invalida. Intente nuevamente.\n");
             break;
         } // switch
     } while (stop_while == 0); // ciclo do_while
-    free(p); // invocacion free para liberar la memoria asignada anteriormente
+    free(p);
     return 0;
 } // main
+
+void print (char *p, int *n1)
+{
+    int ii = 0;
+    for (ii = 0; ii < *n1; ii++)
+    {
+        printf("%c\t", *(p+ii));
+    } // for
+    printf("\n");
+} // funcion print
