@@ -84,7 +84,11 @@ int main(int argc, char const *argv[])
             printf("\nOpcion incorrecta. Intente nuevamente...\n");
             break;
         }
-    } while (stop_while == 0);    
+    } while (stop_while == 0);   
+	for (ii=0; ii < FIL; ii++) // liberando memoria filas
+	{
+		free(*array+ii);
+	}
     free(array); // libera la memoria asignada anteriormente
     return 0;
 }

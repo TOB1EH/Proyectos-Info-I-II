@@ -45,7 +45,7 @@ void print (int *ptr)
     {
         for (jj = 0; jj < COL; jj++)
         {
-            printf("%d\t", *((ptr+ii)+jj));
+            printf("%d\t", *(*(ptr+ii)+jj));
         }
         printf("\n");
     }
