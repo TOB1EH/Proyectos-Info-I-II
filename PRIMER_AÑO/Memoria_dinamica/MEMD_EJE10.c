@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     }
     for (ii = 0; ii < n1; ii++)
     {
-        printf("Ingrese el valor n°%d: ", ii+1);
+        printf("Ingrese el caracter n°%d: ", ii+1);
         scanf(" %c", (p+ii));
     }
     /* Impresion de datos */
@@ -52,6 +52,7 @@ int main(int argc, char const *argv[])
                     "c. Cancelar.\n"
                     "opcion: ");
             scanf(" %c", &opcion);
+            opcion = tolower(opcion);
             switch (opcion)
             {
             case 'a':
@@ -69,6 +70,7 @@ int main(int argc, char const *argv[])
                     printf("Ingrese el valor n°%d: ", (n1+(ii+1)));
                     scanf(" %c", (p + ii + n1));
                 }
+                n1 = n1+n2;
                 /* Impresion de datos */
                 printf("\nNuevo total de valores:\t");
                 for (ii = 0; ii < (n1+n2); ii++)
@@ -76,12 +78,11 @@ int main(int argc, char const *argv[])
                     printf("%c\t", *(p+ii));
                 }
                 printf("\n");
-                n1 = n1 + n2;
                 break;
             case 'b':
                 printf("\nCuantos elementos/valores desea quitar: ");
                 scanf("%d", &n2);
-                n1 = n1 - n2;
+                n1 = n1-n2;
                 p = (char *) realloc(p, n1 * sizeof(char));
                 if (p == NULL)
                 {
@@ -97,7 +98,6 @@ int main(int argc, char const *argv[])
                     printf("%c\t", *(p+ii));
                 }
                 printf("\n");
-                n1 = n1 - n2;
                 break;
             case 'c':
                 printf("\nCancelando...\n");

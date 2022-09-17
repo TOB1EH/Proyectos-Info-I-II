@@ -55,6 +55,7 @@ int main(int argc, char const *argv[])
             } // if
             else // de lo contrario continua
             {                            
+                /* Cargar mas datos */
                 for (ii = 0; ii < n2; ii++)
                 {
                     printf("Ingrese un caracter: ");

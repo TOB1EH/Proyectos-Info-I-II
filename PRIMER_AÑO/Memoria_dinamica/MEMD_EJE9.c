@@ -14,13 +14,15 @@ int main(int argc, char const *argv[])
     /* Declaracion e inicializacion de variables */
     char opcion = 0;
     int ii = 0, jj = 0, stop_while = 0, suma = 0;
+    
     srand(time(NULL)); // funcion de numeros aleatorios
+    
     /* Reservando memoria: Filas */
     int **array = (int **) malloc(FIL * sizeof(int *)); // arreglo de punteros para almacenar las colums.
     if (array == NULL)
     {
         printf("\nMemoria insuficiente...\n");
-        exit(0);
+        exit(0); // si no hay memoria suficiente, finaliza el programa
     }
     /* Reservando memoria: Columnas */
     for (ii = 0; ii < FIL; ii++)
@@ -85,6 +87,11 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (stop_while == 0);    
+    /* Liberacion de memoria */
+    for (ii = 0; ii < FIL; ii++)
+    {
+        free(*(array+ii));
+    }
     free(array); // libera la memoria asignada anteriormente
     return 0;
 }
