@@ -92,6 +92,6 @@ int main(int argc, char const *argv[])
     {
         free(*(array+ii));
     }
-    free(array); // libera la memoria asignada anteriormente
+    free(array);
     return 0;
 }

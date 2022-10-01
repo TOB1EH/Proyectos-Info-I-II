@@ -1,10 +1,12 @@
 /*--- LIBRERIAS ---*/
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define TAM 15
+#define TAM 20
 
 /*--- ESTRUCTURAS ---*/
-struct datos_cancion
+struct datosCancion
 {
     char artista[TAM];
     char titulo[TAM];
@@ -15,28 +17,20 @@ struct datos_cancion
 /*--- FUNCION PRINCIPAL MAIN ---*/
 int main(int argc, char const *argv[])
 {
-    int ii = 0, count = 0;
-    struct datos_cancion cancion; // declaracion de la estructura (comienza a ocupar memoria)
+    struct datosCancion cancion; // declaracion de la estructura (comienza a ocupar memoria)
     /* Carga de datos */
-    count = TAM;
     printf("Ingrese el titulo de cancion: ");
-    for (ii = 0; ii < count; ii++)
-    {
-        scanf(" %c", &cancion.titulo[ii]);
-    }
+    fgets(cancion.titulo, TAM, stdin); // aca aparece el error "declaracion implicita de la funcion gets y agregra incluso si no quise decir fgets"
     printf("Ingrese el nombre del Artista: ");
-        for (ii = 0; ii < TAM; ii++)
-    {
-        scanf(" %c", &cancion.artista[ii]);
-    }
+    fgets(cancion.artista, TAM, stdin);
     printf("Ingrese la duracion de la cancion en segundos: ");
     scanf("%d", &cancion.duracion);
     printf("Ingrese el tamaño en KB de la cancion: ");
     scanf("%f", &cancion.tam_kb);
     /* Impreseion de la estructura ("datos de cancion") */
     printf("\nDatos de la cancion:\n"
-            "Nombre: %s\n"
-            "Titulo: %s\n"
+            "Artista: %s"
+            "Titulo: %s"
             "Duracion: %d seg\n"
             "Tamaño: %.2f KB\n",
             cancion.artista, cancion.titulo, cancion.duracion, cancion.tam_kb);
