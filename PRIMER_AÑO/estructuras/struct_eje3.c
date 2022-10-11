@@ -57,6 +57,9 @@ int main(int argc, char const *argv[])
         case 'd':
             actualizarSueldo(empleado, &count);
             break;
+        case 'e':
+            ordenarXSueldo(empleado, &count);
+            break;
         case 'g':
             stopWhile = 1;
             break;
@@ -82,6 +85,7 @@ void agregarEmpleado (struct Empleado empleado[], int *count)
         printf("Anios de antiguedad: ");
         scanf(" %d", &empleado[*count].anios_antiguedad);
         *count+=1;
+        setbuf(stdin, NULL);
     }
     else
     {
@@ -157,3 +161,21 @@ void actualizarSueldo (struct Empleado empleado[], int *count)
         }
     }
 } // function actualizarSueldo
+void ordenarXSueldo (struct Empleado empleado[], int *count)
+{
+    int ii = 0, jj = 0;
+    struct Empleado tempo;
+    for (ii = 0; ii < *count; ii++)
+    {
+        for (ii = 0; ii < *count; ii++)
+        {
+            if (empleado[jj].sueldo > empleado[jj+1].sueldo)
+            {
+                tempo = empleado[ii];
+                empleado[ii] = empleado[jj+1];
+                empleado[jj+1] = tempo; 
+            }
+        }
+    }
+    printf("\nSueldos ordenados de mayor a menor con exito!\n");
+}

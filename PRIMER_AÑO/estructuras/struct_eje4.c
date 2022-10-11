@@ -30,7 +30,8 @@ struct Persona
     struct Direccion direccion;
     long telefono;
 };
-
+/* Prototipo de Funciones */
+void print (struct Persona *datosPersonas); // funcion para imprimir los datos cargados
 /* Funcion principal main */
 int main(int argc, char const *argv[])
 {
@@ -51,6 +52,30 @@ int main(int argc, char const *argv[])
     printf("Direccion/Domicilio:\ncalle: ");
     setbuf(stdin, NULL);
     fgets(datos_persona.direccion.calle, TAM_STRINGS, stdin);
-    printf(""); 
+    printf("Barrio: ");
+    setbuf(stdin, NULL);
+    fgets(datos_persona.direccion.barrio, TAM_STRINGS, stdin);
+    printf("Localidad: ");
+    setbuf(stdin, NULL);
+    fgets(datos_persona.direccion.localidad, TAM_STRINGS, stdin);
+    printf("Ingrese el numero de telefono: ");
+    scanf(" %li", &datos_persona.telefono); 
+    print(&datos_persona);
     return 0;
+}
+/* Funciones */
+void print (struct Persona *datosPersonas)
+{
+    printf("\nDatos personales registrados:\n"
+            "Nombre y Apellido: %s %s\n"
+            "Fecha de nacimiento: %d de %s del %d\n"
+            "Domicilio:\n\tLocalidad: %s"
+            "\tCalle: %s"
+            "\tBarrio: %s"
+            "CEL.: %li\n\n",
+            datosPersonas->nombre, datosPersonas->apellido,
+            datosPersonas->fecha.dia, datosPersonas->fecha.mes, datosPersonas->fecha.anio,
+            datosPersonas->direccion.localidad, datosPersonas->direccion.calle,
+            datosPersonas->direccion.barrio,
+            datosPersonas->telefono);
 }
