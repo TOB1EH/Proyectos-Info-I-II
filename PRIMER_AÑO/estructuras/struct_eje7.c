@@ -8,17 +8,16 @@
 
 struct Producto
 {
-    long cod;
+    int cod;
     char nombre[TAM_STRING];
     int stock;
     int cant_vendida;
 };
 
-void cargarProductos (struct Producto **productos, int *nProducts);
 
 int main(int argc, char const *argv[])
 {
-    
+    /* Declaracion e inicializacion de variables */
     struct Producto *producto = NULL;
     int nProducts = 0, stopWhile = 0, ii = 0;
 
@@ -38,26 +37,21 @@ int main(int argc, char const *argv[])
     if (producto == NULL)
     {
         printf("\nMemoria Insuficiente\n");
-        exit(0);
+        exit(0); // si no hay memoria disponible finalizar el programa
     }
-    
     /* Carga de datos */
-    cargarProductos(&producto, &nProducts);
-
+    for (ii = 0; ii < nProducts; ii++)
+    {
+        printf("Ingrese el codigo: ");
+        scanf("%d", &(producto+ii)->cod);
+    }
+    /* Impresion de datos */
+    printf("Datos:\n");
+    for (ii = 0; ii < nProducts; ii++)
+    {
+        printf("codigo: %d", (producto+ii)->cod);
+    }
+    /* Liberar memoria */
     free(producto);
     return 0;
-}
-void cargaProductos (struct Producto **productos, int *nProducts)
-{
-    int ii = 0;
-    srand(time(NULL));
-    // Datos aleatorios a modo de simplificar el ejercicio
-    for (ii = 0; ii < *nProducts; ii++)
-    {
-       id = id + num;
-       (*productos + ii)->cod = 100020+ii;
-       (*productos + ii)->nombre[TAM_STRING] = id;
-       (*productos + ii)->stock = rand()%100;
-       (*productos + ii)->cant_vendida = 0;
-    }
 }
