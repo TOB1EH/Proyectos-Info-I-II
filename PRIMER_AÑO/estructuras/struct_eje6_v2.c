@@ -1,3 +1,4 @@
+/* Librerias */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,24 +30,26 @@ struct Persona
 struct Alumno
 {
     struct Persona persona;
-    char materias;
-    float notas;
+    char **materias;
+    float *notas;
 };
 
 /* Prototipo de funciones */
 void print (struct Alumno *alumno);
+
 /* Funcion principal main */
-int main(int argc, char const **argv[])
+int main(int argc, char const *argv[])
 {
     /* Declaracion e inicializacion de variables */
     struct Alumno alumno;
-    int nMaterias = 0, ii = 0, jj = 0;
-    char *ptrMaterias = &alumno.materias;
-    float *ptrNotas = &alumno.notas;
-
+    int cantMaterias = 0, ii = 0;
+    float nota = 0;
+    long telefono = 0;
+    
     /* Carga de datos */
-    printf("COMPLETE LOS DATOS DEL ALUMNO:\n");
-    printf("Ingrese datos personales segun corresponda:\nNombre: ");
+    printf("COMPLETE LOS DATOS DEL ALUMNO:\n"
+            "Ingrese datos personales segun corresponda:\n"
+            "Nombre: ");
     scanf(" %s", alumno.persona.nombre);
     printf("Apellido: ");
     scanf(" %s", alumno.persona.apellido);
@@ -66,48 +69,46 @@ int main(int argc, char const **argv[])
     setbuf(stdin, NULL);
     fgets(alumno.persona.direccion.localidad, TAM_STRINGS, stdin);
     printf("Ingrese el numero de telefono: ");
-    scanf(" %li", &alumno.persona.telefono);
-    setbuf(stdin, NULL);
-
+    scanf("%li", &telefono);
+    alumno.persona.telefono = telefono;
     printf("Ingrese la cantidad de materias que cursa: ");
-    scanf("%d", &nMaterias);
-    setbuf(stdin, NULL);
-    ptrNotas = (float *)malloc(nMaterias * sizeof(float)); 
-    ptrMaterias = (char **)malloc(nMaterias * sizeof(char *));
-    if (ptrNotas == NULL || ptrMaterias == NULL)
+    scanf("%d", &cantMaterias);
+    alumno.materias = (char **)malloc(cantMaterias*sizeof(char *)); // redimension array materias, arreglo de strings para almacenar el nombre de cada materia
+    alumno.notas = (float *)malloc(cantMaterias*sizeof(float)); // redimension de array notas, para almacenar la nota final de cada materia
+    if (alumno.materias == NULL || alumno.notas == NULL)
     {
-        printf("\nMemoria insuficiente.\n");
-        exit(0);
+        printf("\nMemoria insuficiente\n");
+        exit(0); // si no hay memoria suficiente finalizar el programa
     }
-    for (ii = 0; ii < nMaterias; ii++)
+    for (ii = 0; ii < cantMaterias; ii++)
     {
-        *(ptrMaterias+ii) = (char *)malloc(TAM_STRINGS*sizeof(char));
-        if (*(ptrMaterias+ii) == NULL)
+        *(alumno.materias+ii) = (char *)malloc(TAM_STRINGS*sizeof(char)); // posicion de mem para almacenar cada string: materia
+        if (*(alumno.materias+ii) == NULL)
         {
             printf("\nMemoria insuficiente\n");
-            exit(0);
+            exit(0); //  si no hay memoria finalizar
         }
+        setbuf(stdin, NULL);
         printf("Introduzca el nombre de la materia: ");
-        setbuf(stdin, NULL);
-        fgets(*(ptrMaterias+ii), TAM_STRINGS, stdin);
+        fgets(*(alumno.materias+ii), TAM_STRINGS, stdin);
         printf("Introduzca la nota final: ");
-        scanf("%f", ptrNotas+ii);
-        setbuf(stdin, NULL);
+        scanf("%f", &nota);
+        *((alumno.notas)+ii) = nota;
     }
+
     /* Impresion de datos */
     print(&alumno);
     printf("Materias y Notas finales:\n");
-    for (ii = 0; ii < nMaterias; ii++)
+    for (ii = 0; ii < cantMaterias; ii++)
     {
-        printf("%s", alumno->(materias+ii));
-        // printf("%s %.1f", *(ptrMaterias+ii), *(ptrNotas+ii));
+        printf("- %s\tNota final: %.1f", *(alumno.materias+ii), *((alumno.notas)+ii));
         printf("\n");
     }
     printf("\n");
 
-    /* Liberacion de memoria */
-    free(ptrMaterias);
-    free(ptrNotas);
+    /* Liberar Memoria */
+    free(alumno.notas);
+    free(alumno.materias);
     return 0;
 }
 /* Funciones */
@@ -119,7 +120,7 @@ void print (struct Alumno *alumno)
         "Domicilio:\n\tLocalidad: %s"
         "\tCalle: %s"
         "\tBarrio: %s"
-        "CEL: %li\n",
+        "CEL: %ld\n",
         alumno->persona.nombre, alumno->persona.apellido,
         alumno->persona.fecha.dia, alumno->persona.fecha.mes, alumno->persona.fecha.anio,
         alumno->persona.direccion.localidad, alumno->persona.direccion.calle,
