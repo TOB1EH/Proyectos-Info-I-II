@@ -110,7 +110,7 @@ int main(int argc, char const *argv[])
     free(alumno.notas);
     free(alumno.materias);
     return 0;
-}
+} // main
 /* Funciones */
 void print (struct Alumno *alumno)
 {

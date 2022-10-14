@@ -11,7 +11,7 @@ struct datosCancion
     char artista[TAM];
     char titulo[TAM];
     int duracion;
-    float tam_kb;   
+    float tam_kb;
 };
 
 /*--- FUNCION PRINCIPAL MAIN ---*/
