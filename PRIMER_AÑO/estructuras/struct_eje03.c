@@ -21,6 +21,7 @@ void actualizarSueldo (struct Empleado empleado[], int *count);
 void ordenarXSueldo (struct Empleado empleado[], int *count);
 void ordenarxAnios (struct Empleado empleado[], int *count);
 
+/* Funcion principal main */
 int main(int argc, char const *argv[])
 {
     /* Declaracion e inicializacion de variables */
@@ -59,6 +60,9 @@ int main(int argc, char const *argv[])
             break;
         case 'e':
             ordenarXSueldo(empleado, &count);
+            break;
+        case 'f':
+            ordenarxAnios(empleado, &count);
             break;
         case 'g':
             stopWhile = 1;
@@ -99,10 +103,10 @@ void listaDeEmpleados (struct Empleado empleado[], int *count)
     for (ii = 0; ii < *count; ii++)
     {
         printf("* Empleado n°%d:\n"
-                "N° de legajo: %li\n"
-                "Puesto de trabajo: %s"
-                "Sueldo: $%.2f\n"
-                "Anios de antiguedad: %d\n",
+                "\tN° de legajo: %li\n"
+                "\tPuesto de trabajo: %s"
+                "\tSueldo: $%.2f\n"
+                "\tAnios de antiguedad: %d\n",
                 ii+1,
                 empleado[ii].legajo,
                 empleado[ii].puesto_de_trabajo,
@@ -165,17 +169,35 @@ void ordenarXSueldo (struct Empleado empleado[], int *count)
 {
     int ii = 0, jj = 0;
     struct Empleado tempo;
-    for (ii = 0; ii < *count; ii++)
+    for (ii = 1; ii < *count; ii++)
     {
-        for (ii = 0; ii < *count; ii++)
+        for (jj = 0; jj < *count-1; jj++)
         {
             if (empleado[jj].sueldo > empleado[jj+1].sueldo)
             {
-                tempo = empleado[ii];
-                empleado[ii] = empleado[jj+1];
+                tempo = empleado[jj];
+                empleado[jj] = empleado[jj+1];
                 empleado[jj+1] = tempo; 
             }
         }
     }
-    printf("\nSueldos ordenados de mayor a menor con exito!\n");
+    printf("\nSueldos ordenados de menor a mayor con exito!\n\n");
+} // funcion 'ordenarxSueldo'
+void ordenarxAnios (struct Empleado empleado[], int *count)
+{
+    int ii = 0, jj = 0;
+    struct Empleado tempo;
+    for (ii = 1; ii < *count; ii++)
+    {
+        for (jj = 0; jj < *count-1; jj++)
+        {
+            if (empleado[jj].anios_antiguedad < empleado[jj+1].anios_antiguedad)
+            {
+                tempo = empleado[jj];
+                empleado[jj] = empleado[jj+1];
+                empleado[jj+1] = tempo; 
+            }
+        }
+    }
+    printf("\nAnios ordenados de mayor a menor con exito!\n\n");   
 }

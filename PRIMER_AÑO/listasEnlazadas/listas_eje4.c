@@ -40,6 +40,7 @@ int main(int argc, char const *argv[])
     }
     
     /* Imprimir datos */
+    printf("Valores totales generados:\t");
     print(head); // funcion para imprimir todos los valores generados
     
     /* Imprimir solo las vocales */
@@ -60,7 +61,6 @@ int main(int argc, char const *argv[])
 
 void addend (struct Lista **head, struct Lista **newNode)
 {
-    //struct Lista *newNode = NULL;
     struct Lista *temp = NULL;    
 
     /* Crear nuevo Nodo en la lista */
@@ -87,7 +87,6 @@ void print (struct Lista *head)
 {
     struct Lista *temp = NULL;
     temp = head;
-    printf("Valores totales generados:\t");
     while (temp != NULL)
     {
         printf("%c\t", temp->data);
