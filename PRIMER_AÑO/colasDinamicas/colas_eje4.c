@@ -30,6 +30,7 @@ void pop (node_t **front, node_t **back); // elimina el primer nodo de la cola
 void printCola (node_t *front); // imprime la cola completa
 void cantNodes (node_t *front); // cuenmta la cantidad de nodos
 void cantMayusYMinus (node_t *front); // cuenta la cantidad de mayusculas y minusculas en la cola
+void freeMemory (node_t **front);
 
 /* Funcion principal main */
 int main(int argc, char const *argv[])
@@ -77,7 +78,8 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (stopWhile == 0);
-
+    /* Liberar memoria */
+    freeMemory(&front);
     return 0;
 } // main
 
@@ -169,3 +171,13 @@ void cantMayusYMinus (node_t *front)
             "Cant. Minusculas: %d\n"RESET_COLOR,
             countMayus, countMinus);
 } // countMayusYMinus
+void freeMemory (node_t **front)
+{
+    node_t *temp = NULL;
+    while (front != NULL)
+    {
+        temp = *front;
+        *front = (*front)->link;
+        free(temp);
+    }
+} // freeMemory
