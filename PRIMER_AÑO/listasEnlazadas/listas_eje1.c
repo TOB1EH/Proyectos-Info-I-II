@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
         {
             printf("\nNo hay memoria suficiente\n");
             exit(0);
-        }    
+        }
         /* Carga de datos en Nodos */
         printf("Ingrese el %d° numero de la lista: ", ii+1);
         scanf("%f", &dato);

@@ -18,7 +18,7 @@ struct lista
     struct lista *next;
 };
 
-typedef struct lista lista_t; 
+typedef struct lista lista_t;
 
 /* Prototipo de Funciones */
 void addend (struct lista **head, struct lista **newNode);
