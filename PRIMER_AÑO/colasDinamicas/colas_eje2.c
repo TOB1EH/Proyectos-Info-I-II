@@ -6,18 +6,23 @@ los valores pares. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "structCola.h"
-#include "check_memory.h"
 
 /* Directivas */
 #define TAM_MAX 5 // tamanio max de la cola
 
+/* Estructuras */
+struct node
+{
+    int data; // dato
+    struct node *link; // ptr al siguiente node
+};
+/* Declaracion  de tipo definido por el usuario */
 typedef struct node node_t;
 
 /* Prototipo de Funciones */
-//void checkMemory (struct node **newNode);
 void push (struct node **front,struct node **back, struct node **node);
 void print_int_list  (struct node *front);
+void freeMemory (struct node **front);
 
 /* Funcion principal main */
 int main(int argc, char const *argv[])
@@ -53,16 +58,19 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     /* LIberar memoria */
-
+    freeMemory(&front);
     return 0;
 } // main
 
 /* Funciones */
-
 void push (struct node **front,struct node **back, struct node **node)
 {
     *node = (node_t *)malloc(sizeof(node_t));
-    checkMemory(node);
+    if (node == NULL) // verifica si hay memoria suficiente
+    {
+        printf("\nMemoria insuficiente!\n");
+        exit(0); // si no hay memmoria finaliza el programa
+    }
     (*node)->link = NULL;
     /* Si la lista esta vacia, el nodo sera el primero */
     if (*back == NULL)
@@ -90,3 +98,13 @@ void print_int_list  (struct node *front)
     }
     printf("\n");
 } // print_int_list
+void freeMemory (struct node **front)
+{
+    struct node *temp = NULL; // var temporal
+    while (*front != NULL)
+    {
+        temp = *front;
+        *front = (*front)->link;
+        free(temp); // libera la memoria que ocupa temp = primer nodo
+    }
+} // freeMemory

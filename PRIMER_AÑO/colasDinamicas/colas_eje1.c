@@ -1,4 +1,4 @@
-/* Ejercicio 1. Crear un programa con el siguiente menu de opciones: 
+/* Ejercicio 1. Crear un programa con el siguiente menu de opciones:
     Agregar un nodo a la cola. (se deben agregar 5 valores)
     Borrar el primer nodo de la cola.
     Imprimir cola.
@@ -19,7 +19,7 @@ struct node // cola dinamica
     int data[TAM_MAX];
     struct node *link;
 };
-/**/
+/* Declaracion  de tipo definido por el usuario */
 typedef struct node node_t;
 
 /* Prototipo de Funciones */
@@ -27,7 +27,7 @@ void push (struct node **front, struct node **back); // funcion para cargar un n
 void load (struct node **newNode); // funcion para cargar dats en un nodo
 void pop (struct node **front, struct node **back); // funcion para haer pop/elimiar el primer nodo de la cola
 void printFIFO (struct node *front); // funcion para imprimir la cola completa
-void freeMemory (struct node **front, struct node **back); // funcion para liberar la memoria.
+void freeMemory (struct node **front); // funcion para liberar la memoria.
 
 /* Funcion principal main */
 int main(int argc, char const *argv[])
@@ -35,14 +35,14 @@ int main(int argc, char const *argv[])
     /* Declaracion e inicializacion de variables */
     node_t *front = NULL;
     node_t *back = NULL;
-    int ii = 0, stopWhile = 0;
+    int stopWhile = 0;
     char opcion = 0;
 
     do // bucle repetitivo para menu de opciones
     {
         printf("Menu de opciones:\n"
                 "a. Insertar un nuevo nodo de 5 elementos\n"
-                "b. Borarr el primer nodo de la cola.\n"
+                "b. Borrar  el primer nodo de la cola.\n"
                 "c. Imprimir cola.\n"
                 "d. Cerrar menu.\n"
                 "Ingrese un aopcion: ");
@@ -68,9 +68,8 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (stopWhile == 0);
-    
     /* Liberar memoria */
-    freeMemory(&front, &back); // invocacion a la funcion 'freeMemory'
+    freeMemory(&front); // invocacion a la funcion 'freeMemory'
     return 0;
 } // main
 
@@ -99,11 +98,12 @@ void push (struct node **front, struct node **back)
 } // push
 void load (struct node **newNode)
 {
-    int ii = 0;
-    for (ii = 0; ii < TAM_MAX; ii++)
+    int val = 0;
+    for (int ii = 0; ii < TAM_MAX; ii++)
     {
         printf("ingrese el valor nro %d: ", ii+1);
-        scanf("%d", &(*newNode)->data[ii]); 
+        scanf("%d", &val);
+        (*newNode)->data[ii] = val;
     }
 } // load
 void pop (struct node **front, struct node **back)
@@ -119,32 +119,31 @@ void pop (struct node **front, struct node **back)
             *back = (*back)->link;
         free(temp); // libera la memoria que ocupa temp = primer nodo
     }
+    printf("\nBorrado con exito\n");
 } // pop
 void printFIFO (struct node *front)
 {
     struct node *temp = NULL; // variable temporal
     int ii = 0;
-    temp = front; 
+    temp = front;
     while (temp != NULL)
     {
         for (ii = 0; ii < TAM_MAX; ii++)
         {
-            printf("%d\t", (front)->data[ii]);
+            printf("%d\t", temp->data[ii]);
         }
         printf("\n");
         temp = temp->link;
     }
     printf("\n");
 } // printFIFO
-void freeMemory (struct node **front, struct node **back)
+void freeMemory (struct node **front)
 {
     struct node *temp = NULL; // var temporal
-    while ((*front != *back) && (*back != NULL))
+    while (*front != NULL)
     {
         temp = *front;
         *front = (*front)->link;
-        if (*back == temp) // si la cola tiene un solo elemento
-            *back = (*back)->link;
-        free(temp); // libera la memoria que ocupa temp = primer nodo         
-    }  
+        free(temp); // libera la memoria que ocupa temp = primer nodo
+    }
 } // freeMemory
