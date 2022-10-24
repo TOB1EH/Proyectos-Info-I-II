@@ -1,3 +1,10 @@
+/* 5. Desarrolle un programa que cargue una pila de numeros enteros aleatorios.
+Luego realice un menu de opciones:
+    Agregar un nodo a la pila. (cuando agrega un valor, el mismo no tiene que estar
+    repetido en la pila)
+    Borrar el último nodo de la pila.
+    Imprimir pila. */
+
 /* Librerias */
 #include <stdio.h>
 #include <stdlib.h>

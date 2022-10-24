@@ -7,12 +7,11 @@
 /* Librerias */
 #include <stdio.h>
 #include <stdlib.h>
-
-/* Directivas */
-
-/* Estructuras */
+#include "pila_int.h"
+#include "functions_stacks.h"
 
 /* Declaracion  de tipo definido por el usuario */
+typedef struct node node_t;
 
 /* Prototipo de Funciones */
 
@@ -20,8 +19,20 @@
 int main(int argc, char const *argv[])
 {
     /* Declaracion e inicializacion de variables */
+    node_t *stack = NULL;
+    node_t *newNode = NULL;
+    int stopWhile = 0;
+    char opcion = 0;
 
-    /* code */
+    do // Menu de opciones
+    {
+        printf("Menu de opciones:\n"
+                "a. Agregar un nodo a la pila.\n"
+                "b. Borrar el último nodo de la pila.\n"
+                "c. Imprimir pila.\n"
+                "d. Suma de los valores de la pila.\n"
+                "e. Cerrar Menu.\n");
+    } while (stopWhile == 0);
     return 0;
 } // main
 
