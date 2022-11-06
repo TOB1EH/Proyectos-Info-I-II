@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "pila_int.h"
 #include "functions_stacks.h"
 
@@ -49,6 +50,19 @@ void printStackInt(struct node *stack)
     }
     printf("\n");
 } // printStackInt
+void printStackChar(struct node *stack)
+{
+    struct node *temp = NULL;
+    /* Se comienza a recorrer desde el stackptr */
+    temp = stack;
+    while (temp != NULL)
+    {
+        printf("%c\t", temp->data);
+        /* asignamos el nodo sig. de temp a temp */
+        temp = temp->next;
+    }
+    printf("\n");
+} // printStackInt
 void freeMemory(struct node **stack)
 {
     struct node *temp = NULL;
@@ -74,3 +88,14 @@ float addValues(struct node *stack)
     }
     return total;
 } // addValues
+int countNodes(struct node *stack)
+{
+    int count = 0;
+    struct node *temp = stack;
+    while (temp != NULL)
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
