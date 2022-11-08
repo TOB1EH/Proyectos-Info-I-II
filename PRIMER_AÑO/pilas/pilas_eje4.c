@@ -11,15 +11,12 @@ minusculas entre  97 a 122 inclusive. */
 /* Librerias */
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack_char.h"
+#include <ctype.h>
+#include "pila_int.h"
 #include "functions_stacks.h"
 
-/* Directivas */
-
 /* Declaracion  de tipo definido por el usuario */
-typedef struct nodeChar stack_t;
-
-/* Prototipo de Funciones */
+typedef struct node stack_t;
 
 /* Funcion principal main */
 int main(int argc, char const *argv[])
@@ -27,18 +24,22 @@ int main(int argc, char const *argv[])
     /* Declaracion e inicializacion de variables */
     stack_t *stack = NULL;
     stack_t *node = NULL;
-    char opcion = 0;
+    stack_t *temp = NULL;
+    char opcion = 0, aux = 0;
+    int countMayus = 0, countMinus = 0;
     do
     {
         printf("Menu para crear una Stack de letras:\n"
                 "\ta. Agregar un nodo a la stack.\n"
-                "\tb. Borrar el último nodo de la stack.\n"
+                "\tb. Borrar el ultimo nodo de la stack.\n"
                 "\tc. Imprimir stack.\n"
-                "\td. Tamaño de la stack.\n"
-                "\te. Mostrar el último valor de la .\n"
+                "\td. Tamanio de la stack/cant. de nodos.\n"
+                "\te. Cantidades de letras mayusculas y minusculas en la stack.\n"
                 "\tf. Cerrar menu.\n"
                 "Ingrese una opcion: ");
         scanf(" %c", &opcion);
+        opcion = tolower(opcion); // convierte cualquier letra a minusculas
+        system("cls");
         switch (opcion)
         {
         case 'a':
@@ -49,31 +50,43 @@ int main(int argc, char const *argv[])
         case 'b':
             popNode(&stack);
             printf("\nNodo Borrado.\n");
+            system("pause");
             break;
         case 'c':
             printf("Stack completa:\n");
             printStackChar(stack);
+            system("pause");
             break;
-        case 'd': 
+        case 'd':
             printf("\nStack de %d nodos.\n", countNodes(stack));
+            system("pause");
             break;
         case 'e':
-            if (stack != NULL)
-                printf("\nUltimo valor: %d\n", stack->data);
-            else
+            temp = stack;
+            while (temp != NULL)
             {
-                printf("\nStack Vacia!\n");
+                aux = temp->data;
+                if (aux >= 65 && aux <= 90)
+                    countMayus++;
+                else
+                {
+                    countMinus++;
+                }
+                temp = temp->next;
             }
+            printf("\nLetras Mayusculas: %d\n"
+                    "Letras Minusculas: %d\n", countMayus, countMinus);
+            system("pause");
             break;
         case 'f':
             printf("\nCerrando...\n");
             break;
         default:
             printf("\nOpcion invalida. Intente nueamente.\n");
+            system("pause");
             break;
         }
     } while (opcion != 'f');
+    freeMemory(&stack); // liberar memoria
     return 0;
 } // main
-
-/* Funciones */

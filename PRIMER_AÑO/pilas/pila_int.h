@@ -5,7 +5,6 @@
 struct node // pila de arreglos de enteros
 {
     int data;
-    char dataChar;
     struct node *next;
 };
 

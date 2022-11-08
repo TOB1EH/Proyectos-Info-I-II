@@ -8,6 +8,7 @@
 /* Librerias */
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "pila_int.h"
 #include "functions_stacks.h"
 
@@ -36,6 +37,7 @@ int main(int argc, char const *argv[])
                 "\tf. Cerrar menu.\n"
                 "Ingrese una opcion: ");
         scanf(" %c", &opcion);
+        opcion = tolower(opcion); // convierte cualquier letra a minusculas
         switch (opcion)
         {
         case 'a':
@@ -59,7 +61,7 @@ int main(int argc, char const *argv[])
             printf("Stack completa:\n");
             printStackInt(stack);
             break;
-        case 'd': 
+        case 'd':
             printf("\nStack de %d nodos.\n", countNodes(stack));
             break;
         case 'e':
@@ -78,5 +80,6 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (opcion != 'f');
+    freeMemory(&stack); // liberar memoria
     return 0;
 } // main

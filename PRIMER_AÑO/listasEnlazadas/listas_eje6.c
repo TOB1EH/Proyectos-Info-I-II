@@ -89,7 +89,7 @@ void printList (struct lista *head)
     temp = head; // var temporal para no perder/modificar a head
     while (temp != NULL)
     {
-        printf("%d\t", temp->data); 
+        printf("%d\t", temp->data);
         temp = temp->next; // temp almacena la memoria del siguiente nodo
     }
     printf("\n");
