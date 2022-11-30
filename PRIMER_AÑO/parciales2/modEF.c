@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
+#include <string.h>
 
 /* Directivas */
 #define TAM 20
@@ -11,10 +12,12 @@
 typedef struct Score
 {
     char name[TAM];
-    float notas[3];
-    float recuperatorio;
+    int nota1;
+    int nota2;
+    int nota3;
+    int recup;
     float notaFinal;
-    char resultado;
+    char resultado[TAM];
     struct Score *next;
 }score_t;
 
@@ -22,8 +25,13 @@ typedef struct Score
 void append (score_t **head, score_t **node);
 float promNotas (score_t **node);
 void printList (score_t *head);
+void mejorPromedio (score_t *head);
 void freeMemory (score_t **head);
-
+void desaprobrados (score_t *head);
+void aprobrados (score_t *head);
+void ausentes (score_t *head);
+int countNodes (score_t *head);
+void archive (score_t **head);
 
 /* Funcion principal main */
 int main(int argc, char const *argv[])
@@ -36,7 +44,6 @@ int main(int argc, char const *argv[])
     score_t *node = NULL;
 
     /* Carga de Datos */
-
     printf("Calificaciones Ingles.\n"
             "Cuantos alumnos va a cargar: ");
     scanf("%d", &alum);
@@ -44,24 +51,30 @@ int main(int argc, char const *argv[])
     {
         append(&head, &node);
         printf("Ingrese el nombre del alumno: ");
-        scanf(" %s", node->name);
-        for(int jj = 0; jj < 3; jj++)
+        setbuf(stdin, NULL);
+        fgets(node->name, TAM, stdin);
+        node->name[strcspn(node->name, "\n")] = 0;
+        node->nota1 = rand()%10;
+        node->nota2 = rand()%10;
+        node->nota3 = rand()%10;
+        if (node->nota1 >=4 && node->nota2 >=4 && node->nota3 >=4)
         {
-            node->notas[jj] = rand()%10;
-        } // for
-        if (node->notas[0]>=4 && node->notas[1]>=4 && node->notas[3]>=4)
-        {
-            node->recuperatorio = -1;
+            node->recup = -1;
         } // if
         else
         {
-            node->recuperatorio = rand()%10;
+            node->recup = rand()%10;
         } // else
         node->notaFinal = promNotas(&node); // calcula el promedio final
-    }
-
-
-
+        if (node->notaFinal >= 4)
+        {
+            strcpy(node->resultado, "Aprobado");
+        } // if
+        else
+        {
+            strcpy(node->resultado, "Desaprobado");
+        } // else
+    } // for
 
     do // ciclo menu de opciones
     {
@@ -83,6 +96,31 @@ int main(int argc, char const *argv[])
             printf("Listado de calificaciones:\n");
             printList(head);
             break;
+        case 'b':
+            printf("Mejores promedios:\n");
+            mejorPromedio(head);
+            break;
+        case 'c':
+            printf("Alumnos Desaprobados:\n");
+            desaprobrados(head);
+            break;
+        case 'd':
+            printf("Alumnos Aprobados:\n");
+            aprobrados(head);
+            break;
+        case 'e':
+            printf("Alumnos con ausentes:\n");
+            ausentes(head);
+            break;
+        case 'f':
+            printf("Cantidad de alumnos: %d\n", countNodes(head));
+            break;
+        case 'g':
+            archive(&head);
+            break;
+        case 'h':
+            printf("\nCerrando...\n");
+            break;
         default:
             break;
         } // switch
@@ -96,7 +134,7 @@ int main(int argc, char const *argv[])
 void append (score_t **head, score_t **node)
 {
     score_t *temp = NULL;
-    *node = (score_t *)malloc(sizeof(score_t *));
+    *node = (score_t *)malloc(sizeof(score_t));
     if (*node == NULL)
     {
         printf("\nNo hay memoria!\n");
@@ -110,37 +148,45 @@ void append (score_t **head, score_t **node)
     else
     {
         temp = *head;
-        while (temp != NULL)
+        while (temp->next != NULL)
         {
             temp = temp->next;
-        }
+        } // while
         temp->next = *node;
     } // else
 } // append
 float promNotas (score_t **node)
 {
     int ii = 0;
-    if ((*node)->recuperatorio == -1)
+    if ((*node)->recup == -1)
     {
-        for (ii = 0; ii < 3; ii++)
-        {
-            (*node)->notaFinal += (*node)->notas[ii];
-        } // for
-    } // if
-    if ((*node)->recuperatorio < 4 && ((*node)->notas[0] < 4 || (*node)->notas[1] < 4 || (*node)->notas[3] < 4))
-    {
-        (*node)->notaFinal = 0;
+        (*node)->notaFinal= (*node)->nota1+(*node)->nota2+(*node)->nota3;
     } // if
     else
     {
-        for (ii = 0; ii < 3; ii++)
+        if ((*node)->recup < 4 && ((*node)->nota1 < 4 || (*node)->nota2 < 4 || (*node)->nota3 < 4))
         {
-            if ((*node)->notas[ii]>=4 && (*node)->recuperatorio>=4)
+            (*node)->notaFinal = 0;
+        } // if
+        else
+        {
+            if ((*node)->recup >=4)
             {
-                (*node)->notaFinal += (*node)->notas[ii];
+                if ((*node)->nota1 >=4)
+                {
+                    (*node)->notaFinal += (*node)->nota1;
+                } // if
+                if ((*node)->nota2 >=4)
+                {
+                    (*node)->notaFinal += (*node)->nota2;
+                } // if
+                if ((*node)->nota3 >=4)
+                {
+                    (*node)->notaFinal += (*node)->nota3;
+                } // if
             } // if
-        } // for
-        (*node)->notaFinal += (*node)->recuperatorio;
+            (*node)->notaFinal += (*node)->recup;
+        } // else
     } // else
     return ((*node)->notaFinal/3);
 } // promNotas
@@ -153,23 +199,24 @@ void printList (score_t *head)
     {
         count++;
         printf("Alumno nro %d:\n"
-                "\tNombre: %s"
-                "\tNota 1: %.2f\n"
-                "\tNota 2: %.2f\n"
-                "\tNota 3: %.2f\n"
-                "\tRecuperatorio: %.2f\n"
+                "\tNombre: %s\n"
+                "\tNota 1: %d\n"
+                "\tNota 2: %d\n"
+                "\tNota 3: %d\n"
+                "\trecup: %d\n"
                 "\tNota final: %.2f\n"
-                "\tResultado: \n",
+                "\tResultado: %s\n",
                 count,
                 temp->name,
-                temp->notas[0],
-                temp->notas[1],
-                temp->notas[2],
-                temp->recuperatorio,
+                temp->nota1,
+                temp->nota2,
+                temp->nota3,
+                temp->recup,
                 temp->notaFinal,
                 temp->resultado);
         temp = temp->next;
     } // while
+    printf("\n");
 } // printList
 void freeMemory (score_t **head)
 {
@@ -181,3 +228,131 @@ void freeMemory (score_t **head)
         free(temp);
     } // while
 } // freeMemory
+void mejorPromedio (score_t *head)
+{
+    int count = 0;
+    float bestProm = 0;
+    score_t *temp = head;
+    while (temp != NULL)
+    {
+        if (temp->notaFinal > bestProm)
+        {
+            bestProm = temp->notaFinal;
+
+        }
+        temp = temp->next;
+    } // while
+    temp = head;
+    while (temp != NULL)
+    {
+        count++;
+        if (temp->notaFinal == bestProm)
+        {
+            printf("\tAlumno nro %d.\n"
+                    "\tNombre: %s\n"
+                    "\tPromedio: %.2f\n",
+                    count,
+                    temp->name,
+                    temp->notaFinal);
+        }
+        temp = temp->next;
+    } // while
+    printf("\n");
+} // mejorPromedio
+void desaprobrados (score_t *head)
+{
+    int count = 0;
+    score_t *temp = head;
+    while (temp != NULL)
+    {
+        count++;
+        if (temp->notaFinal < 4)
+        {
+            printf("\tAlumno nro %d.\n"
+                    "\tNombre: %s\n"
+                    "\tPromedio: %.2f\n",
+                    count,
+                    temp->name,
+                    temp->notaFinal);
+        }
+        temp = temp->next;
+    }
+    printf("\n");
+} // desaprobados
+void aprobrados (score_t *head)
+{
+    int count = 0;
+    score_t *temp = head;
+    while (temp != NULL)
+    {
+        count++;
+        if (temp->notaFinal >= 4)
+        {
+            printf("\tAlumno nro %d.\n"
+                    "\tNombre: %s\n"
+                    "\tPromedio: %.2f\n",
+                    count,
+                    temp->name,
+                    temp->notaFinal);
+        }
+        temp = temp->next;
+    }
+    printf("\n");
+} // aprobados
+void ausentes (score_t *head)
+{
+    int count = 0;
+    score_t *temp = head;
+    while (temp != NULL)
+    {
+        count++;
+        if (temp->nota1 == 0 ||
+            temp->nota2 == 0 ||
+            temp->nota3 == 0 ||
+            temp->recup == 0)
+        {
+            printf("\tAlumno nro %d.\n"
+                    "\tNombre: %s\n",
+                    count,
+                    temp->name);
+        } // if
+        temp = temp->next;
+    } // while
+    printf("\n");
+} // ausentes
+int countNodes (score_t *head)
+{
+    int count = 0;
+    score_t *temp = head;
+    while (temp != NULL)
+    {
+        count++;
+        temp = temp->next;
+    } // while
+    return count;
+} // countNodes
+void archive (score_t **head)
+{
+    score_t *temp = *head;
+    FILE *fp = NULL;
+    fp=fopen("./Ingles.txt", "w+"); //abre el archivo
+    if (fp == NULL)
+    {
+        perror("./calIngles.txt");
+        exit(1);
+    } // if
+    fputs("INFORME DE CALIFICACIONES DE INGLES\n", fp);
+    while (temp != NULL)
+    {
+        fprintf(fp, "%s\t%d\t%d\t%d\t%d\t%f\t%s\n",
+            temp->name,
+            temp->nota1,
+            temp->nota2,
+            temp->nota3,
+            temp->recup,
+            temp->notaFinal,
+            temp->resultado);
+        temp = temp->next;
+    } // while
+    fclose(fp); // cierra el archivo
+} // archive
