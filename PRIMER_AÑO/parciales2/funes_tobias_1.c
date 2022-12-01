@@ -3,14 +3,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
+
 /* Directivas */
 #define TAM 20
+
 /* Prototipo de funciones */
 void carga (int *p); // funcion para la carga de datos
 void imprimir (int *p); // funcion para imprimir los datos cargados
 void pares (int *p); // funcion para imprimir solo los numeros pares
 void suma_impares (int *p); // funcion para sumar solo los numeros impares
 void val_entre_xy (int *p); // funcion para conocer la cantidad de numeros entre 10 y 15
+
 /* Funcion principal main */
 int main(int argc, char const *argv[])
 {
