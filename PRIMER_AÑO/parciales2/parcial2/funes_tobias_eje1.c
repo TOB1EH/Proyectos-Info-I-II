@@ -5,7 +5,6 @@
 
 #define TAM_STRINGS 25
 #define PESO_LADRILLO 0.350
-#define MAX 3
 
 typedef struct remito
 {
@@ -55,7 +54,7 @@ int main(int argc, char const *argv[])
         scanf("%d", &node->cantLadrillos);
         node->pesoTot = (float)node->cantLadrillos*PESO_LADRILLO;
     }
-    
+
 
     do // bucle para menu de opciones
     {
@@ -90,12 +89,14 @@ int main(int argc, char const *argv[])
             while (temp != NULL)
             {
                 cont++;
-                fprintf(file, "%d\t%d\t%f\t%d\n", 
+                fprintf(file, "%d\t%d\t%f\t%d\n",
                         cont,
                         temp->cantLadrillos,
                         temp->pesoTot,
                         temp->numero);
+                temp = temp->link;
             }
+            printf("\nCarga exitosa.\n");
             fclose(file);
             break;
         case 'e':
@@ -128,7 +129,7 @@ void push(remito_t **front, remito_t **back, remito_t **node)
     if ((*front == *back)&&(*back == NULL))
     {
         *back = *node;
-        *front = *node; 
+        *front = *back;
     }
     else
     {
