@@ -123,25 +123,48 @@ public class HolaMundo {
         System.out.print("Mi nombre es: \b\b\b\b"+nombre+"\n"); // retroceso
 
         /* Clase Math (Matematicas) */
+        double raiz = Math.sqrt(9.0); // raiz cuadrada, solo se puede con double´s
+        System.out.println("raiz cuadrada: "+raiz);
 
+        double base = 5, exponente = 2;
+        double resultado = Math.pow(base, exponente);
+        System.out.println("Base elevada al exponente: "+resultado); // elevacion de una base a una det potencia
+
+        double number = 4.55676;
+        long redondeo = Math.round(number); // redondeo
+        System.out.println("Redondeo 1: "+redondeo);
+        float number2 = 43.2221f;
+        int redondeo2 = Math.round(number2);
+        System.out.println("Redondeo 2: "+redondeo2);
+
+        double aleatorio = Math.random(); // numeros aleatorios
+        System.out.println("Nro random: "+aleatorio);
         // buscar metodos de la clase Math en Java
 
-
         /* UNICODE: caracteres especiales */
+
+        /* Estructuras de Desicion */
+        System.out.println("Ingrese un valor para determinar si es par o no: ");
+        int v = entrada.nextInt();
+        int resto = v%2;
+
+        // Sentencia if-inline
+        String mssg = (resto == 0) ? "Nro es Par": "Nro es impar";
+        System.out.println(mssg);
 
         /* Arrays/Arreglos: */
         int array[] = new int [10]; // arreglo de enteross
         // carga de datos
         for (int ii = 0; ii < 10; ii++) {
-            System.out.print("Ingrese el valor n°"+(++ii)+": ");
+            System.out.print("Ingrese el valor n°"+(ii+1)+": ");
             array[ii] = entrada.nextInt();
         }
         // impresion de datos
         for (int ii = 0; ii < 10; ii++) {
-            System.out.println("Valor n°"+(++ii)+": "+array[ii]);
+            System.out.println("Valor n°"+(ii+1)+": "+array[ii]);
         }
 
-        entrada.close();
+        entrada.close(); // cerramos la instancia entrada del objeto scanner
     }
 }
 

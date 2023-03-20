@@ -1,11 +1,12 @@
 /**
  *
- * @author tobias
+ * @author tobias funes
  */
 
  // Librerias
 import javax.swing.JOptionPane;
 
+/* Ventanas emergentes con JOptionPane */
 public class HolaMundo2 {
     public static void main(String[] args) {
 
