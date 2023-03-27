@@ -67,13 +67,12 @@ public class HolaMundo {
 
 
         /* DATOS NO PRIMITIVOS */
-
         Integer numero = null;
         numero = 10;
         System.out.println("Dato capaz de almacenar un valor nulo: "+numero);
 
         // Cadenas de texto o caracteres
-        String miVarCadena = "Saludos gentusa";
+        String miVarCadena = "Saludos gentusa"; // clase String
         System.out.println(miVarCadena);
 
         // Variables sin tipo definido
@@ -121,6 +120,12 @@ public class HolaMundo {
         System.out.print("Mi nombre es: \n"+nombre+"\n"); // salto de linea
         System.out.print("Mi nombre es: \t"+nombre+"\n"); // tabulado
         System.out.print("Mi nombre es: \b\b\b\b"+nombre+"\n"); // retroceso
+        /*
+            \" – comillas dobles
+            \' – comillas simples
+            \\ – barra
+        */
+
 
         /* Clase Math (Matematicas) */
         double raiz = Math.sqrt(9.0); // raiz cuadrada, solo se puede con double´s
@@ -163,6 +168,8 @@ public class HolaMundo {
         for (int ii = 0; ii < 10; ii++) {
             System.out.println("Valor n°"+(ii+1)+": "+array[ii]);
         }
+
+        // Tratando cadenas de caracteres
 
         entrada.close(); // cerramos la instancia entrada del objeto scanner
     }
