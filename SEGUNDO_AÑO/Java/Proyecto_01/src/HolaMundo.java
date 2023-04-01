@@ -4,8 +4,7 @@
 
 // Librerias
 import java.util.Scanner;
-
-// import javax.print.attribute.SupportedValuesAttribute;
+// import org.jcp.xml.dsig.internal.SignerOutputStream;
 
 public class HolaMundo {
     public static void main(String[] args) {
@@ -83,8 +82,8 @@ public class HolaMundo {
         System.out.println(miVarCadena2 + " y " + miVarCadena);
 
         // Constantes: variables de valor no modificable
-        final int num = 10;
-        System.out.println("Numero constante: "+num);
+        final int NUM = 10; // buena practica nombrar las ctes con mayusculas
+        System.out.println("Numero constante: "+NUM);
 
         /* --- ENTRADA DE DATOS: --- */
         Scanner entrada = new Scanner(System.in); // Creamos un objeto con la clase 'Scanner' y lo instanciamos:
@@ -158,7 +157,8 @@ public class HolaMundo {
         System.out.println(mssg);
 
         /* Arrays/Arreglos: */
-        int array[] = new int [10]; // arreglo de enteross
+        int[] arreglo = new int [5]; // arreglo de entero alt 1
+        int array[] = new int [10]; // arreglo de enteross alt 2
         // carga de datos
         for (int ii = 0; ii < 10; ii++) {
             System.out.print("Ingrese el valor n°"+(ii+1)+": ");
@@ -168,8 +168,80 @@ public class HolaMundo {
         for (int ii = 0; ii < 10; ii++) {
             System.out.println("Valor n°"+(ii+1)+": "+array[ii]);
         }
+        arreglo[0] = 0;
+        arreglo[1] = 1;
+        arreglo[2] = 3;
+        /* ... */
 
         // Tratando cadenas de caracteres
+        /*
+         length()
+         retorna cantidad de caracteres o argumentos de un string.
+         No debemos confundir el atributo length de los array con el método length de los string.En el caso de los array, por tratarse de un atributo no lleva paréntesis. En cambio, en la clase String, length es un método; por lo tanto, siempre debe invocarse con paréntesis.
+        */
+        /* Mayusculas y minusculas */
+        String s = "Esto es una cadena de CaraCTERES";
+        /* Metodos para strings */
+        String sMayus = s.toUpperCase(); // convierte caracteres a mayusculas
+        String sMinus = s.toLowerCase(); // convierte caracteres a minusculas
+
+        System.out.println("Original: "+s);
+        System.out.println("Mayusculas: "+sMayus);
+        System.out.println("Minusculas: "+sMinus);
+
+        /* Ocurrencia de caracteres (Ubicar la posicion de un cacracter) */
+        int pos1 = s.indexOf('C'); // retorna la posición de la primera ocurrencia de un carácter dentro del string. Si no existe retorna un valor negativo.
+        int pos2 = s.lastIndexOf('C'); // retorna la posicion de la ultima ocurrenia de un caracter dentro del string. Si no existe retorna un valor negativo.
+
+        System.out.println("Primera ocurrencia letra C: "+pos1+". Ultima ocurrencia letra C: "+pos2);
+
+        /* Subcadenas, uso para obtener porciones de la cadena original */
+        String s1 = s.substring(0, 7); // tomamos desde el caracter 0 al 7
+        String s2 = s.substring(8,11); // tomamos desde el caracter 8 al 11
+        String s3 = s.substring(13); // tomamos desde el caracter 13 hasta el final
+
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3)
+
+        /* Prefijos y Subfijos */;
+        // si una cadena comienza con un determinado prefijo
+        boolean b1 = s.startsWith("Esto es"); // true
+        boolean b2 = s.startsWith("A"); // false
+        // si una cadena termina con un determinado sufijo
+        boolean b3 = s.endsWith("de CaraCTERES"); // true
+        boolean b4 = s.endsWith("Chau"); // false
+
+        System.out.println(b1);
+        System.out.println(b2);
+        System.out.println(b3);
+        System.out.println(b4);
+
+        /* Posicion de un substring dentro de una cadena */
+        int posicion1 = s.indexOf("Esto"); // retorna 0
+        int posicion2 = s.lastIndexOf("de"); // retorna 19
+        System.out.println(posicion1);
+        System.out.println(posicion2);
+
+        /* Conversion entre numeros y cadenas */
+        int k = 43;
+        String sInt = Integer.toString(k); // convertirme de int a string
+
+        int k2 = Integer.parseInt(sInt); // convertir de string a int
+
+        // operaciones con el tipo double
+        double d = 45.3;
+        String sDouble = Double.toHexString(d); // convertimos de double a string
+        double d2 = Double.parseDouble(sDouble); // convertir de string a double
+
+        System.out.println(k2+", "+d2);
+
+        /* REPRESENTACION EN DIFERENCTES BASES NUMERICAS */
+        int i = 0x24ACF; // imprime 150223
+        System.out.println(i); // en decimal es 150223
+
+
+
 
         entrada.close(); // cerramos la instancia entrada del objeto scanner
     }
