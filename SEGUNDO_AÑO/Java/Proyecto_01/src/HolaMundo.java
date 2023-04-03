@@ -13,7 +13,6 @@ public class HolaMundo {
 
         /* VARIABLES o TIPOS DE DATOS: Tipos de espacios en memoria donde se almacena un valor */
 
-
         /* DATOS PRIMITIVOS: */
 
         /* Enteros:
@@ -125,7 +124,6 @@ public class HolaMundo {
             \\ – barra
         */
 
-
         /* Clase Math (Matematicas) */
         double raiz = Math.sqrt(9.0); // raiz cuadrada, solo se puede con double´s
         System.out.println("raiz cuadrada: "+raiz);
@@ -156,11 +154,13 @@ public class HolaMundo {
         String mssg = (resto == 0) ? "Nro es Par": "Nro es impar";
         System.out.println(mssg);
 
-        /* Arrays/Arreglos: */
-        int[] arreglo = new int [5]; // arreglo de entero alt 1
-        int array[] = new int [10]; // arreglo de enteross alt 2
+        /* Arrays/Arreglos: coleccion de datos del mismo tipo*/
+        int[] arreglo = {1, 2, 3}; // arreglo de entero alt 1
+        // tipo_de_variable[] nombre_del_array = new tipo_de_variable[dimesion]
+
+        int array[] = new int[10]; // arreglo de enteross alt 2
         // carga de datos
-        for (int ii = 0; ii < 10; ii++) {
+        for (int ii = 0; ii < array.length; ii++) {
             System.out.print("Ingrese el valor n°"+(ii+1)+": ");
             array[ii] = entrada.nextInt();
         }
@@ -172,6 +172,14 @@ public class HolaMundo {
         arreglo[1] = 1;
         arreglo[2] = 3;
         /* ... */
+
+        /* Bucle for each */
+        char[] letras = {'a', 'b', 'c', 'd'};
+
+        // for (tipo_de_dato_del_array nombre_iterador : nombre_array)
+        for (char i : letras) {
+            System.out.println(i); // muestra todos los elementos del arreglo
+        }
 
         // Tratando cadenas de caracteres
         /*
@@ -239,8 +247,6 @@ public class HolaMundo {
         /* REPRESENTACION EN DIFERENCTES BASES NUMERICAS */
         int i = 0x24ACF; // imprime 150223
         System.out.println(i); // en decimal es 150223
-
-
 
 
         entrada.close(); // cerramos la instancia entrada del objeto scanner
