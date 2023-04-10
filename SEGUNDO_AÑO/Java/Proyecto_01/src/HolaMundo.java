@@ -5,8 +5,15 @@
 // Librerias
 import java.util.Scanner;
 // import org.jcp.xml.dsig.internal.SignerOutputStream;
+import java.util.StringTokenizer;
 
 public class HolaMundo {
+    /* FUNCIONES */
+    static void saludar (String mssg) {
+        System.out.println("Hola, como estas "+mssg+"?");
+    }
+    // las funciones estaticas no requieren ser instanciadas a un objeto dentro de main
+
     public static void main(String[] args) {
         /* --- SALIDA DE DATOS: --- */
         System.out.println("Hola Mundo"); // imprimir por pantalla con salto de linea
@@ -175,7 +182,6 @@ public class HolaMundo {
 
         /* Bucle for each */
         char[] letras = {'a', 'b', 'c', 'd'};
-
         // for (tipo_de_dato_del_array nombre_iterador : nombre_array)
         for (char i : letras) {
             System.out.println(i); // muestra todos los elementos del arreglo
@@ -245,9 +251,45 @@ public class HolaMundo {
         System.out.println(k2+", "+d2);
 
         /* REPRESENTACION EN DIFERENCTES BASES NUMERICAS */
+
+        // representar enteros en base 16 (anteponemos prefijo 0x)
         int i = 0x24ACF; // imprime 150223
         System.out.println(i); // en decimal es 150223
 
+        // representar enteros en base 8 (anteponemo el prefijo 0)
+        int i2 = 0537; // en decimal es el 351
+        System.out.println(i2);
+
+        // Valor entero en diferentes bases numericas
+        System.out.print("Ingrese un valor entero: ");
+        int n = entrada.nextInt();
+        System.out.println("Valor Ingresado: "+n);
+        System.out.println("binario = "+Integer.toBinaryString(n));
+        System.out.println("octal = "+Integer.toOctalString(n));
+        System.out.println("hexadecimal = "+Integer.toHexString(n));
+
+
+        /* La clase StringTokenizer */
+        // Utilizando la clase StringTokenizer podemos separar una cadena en tokens delimitados por un separador asignado..
+        String ss = "Juan|Marcos|Carlos|Matias";
+        StringTokenizer st = new StringTokenizer(ss, "|");
+        String tok;
+        while (st.hasMoreTokens()) {
+            tok = st.nextToken(); // asigna el siguinete token al string tok|1
+            System.out.println(tok); // lo imprime
+        }
+
+        /* Comparacion de Cadenas */
+        String ss1 = "Hola", ss2 = "Chau";
+        // uso del metodo equals para strings
+        if (ss1.equals(ss2)) {
+            System.out.println("Son iguales");
+        } else {
+            System.out.println("No son iguales");
+        } // deberia retornar que no son iguales
+
+
+        saludar("Tobias"); // Invocacion de la funcion saludar
 
         entrada.close(); // cerramos la instancia entrada del objeto scanner
     }
