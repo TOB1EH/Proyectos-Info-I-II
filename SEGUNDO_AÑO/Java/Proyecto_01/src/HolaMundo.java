@@ -3,6 +3,8 @@
  */
 
 // Librerias
+import java.text.DecimalFormat;
+import java.util.Random;
 import java.util.Scanner;
 // import org.jcp.xml.dsig.internal.SignerOutputStream;
 import java.util.StringTokenizer;
@@ -146,8 +148,8 @@ public class HolaMundo {
         int redondeo2 = Math.round(number2);
         System.out.println("Redondeo 2: "+redondeo2);
 
-        double aleatorio = Math.random(); // numeros aleatorios
-        System.out.println("Nro random: "+aleatorio);
+        /* double aleatorio = Math.random(); // numeros aleatorios
+        System.out.println("Nro random: "+aleatorio); */
         // buscar metodos de la clase Math en Java
 
         /* UNICODE: caracteres especiales */
@@ -188,11 +190,14 @@ public class HolaMundo {
         }
 
         // Tratando cadenas de caracteres
+        var cadenaX = "Hola Mundito";
+        System.out.println("Largo de la cadena: "+cadenaX.length());
         /*
          length()
          retorna cantidad de caracteres o argumentos de un string.
          No debemos confundir el atributo length de los array con el método length de los string.En el caso de los array, por tratarse de un atributo no lleva paréntesis. En cambio, en la clase String, length es un método; por lo tanto, siempre debe invocarse con paréntesis.
         */
+
         /* Mayusculas y minusculas */
         String s = "Esto es una cadena de CaraCTERES";
         /* Metodos para strings */
@@ -209,6 +214,13 @@ public class HolaMundo {
 
         System.out.println("Primera ocurrencia letra C: "+pos1+". Ultima ocurrencia letra C: "+pos2);
 
+        String ss = "Esto es una cadena";
+        int posi1 = ss.indexOf("e"); // retorna 5
+        int posi2 = ss.indexOf('e'); // retorna 5
+
+        //  se invoca el metodo indexOf primero pasandole un String y luego un char, ambas invocaciones son validas ya que el metodo indexOf de la clase String esta "sobrecargado", es decir, perimite recibir mas de una combinacion de de tipos y/o cantidades de argumentos
+        System.out.println("Posicion: "+posi1+"o"+posi2);
+
         /* Subcadenas, uso para obtener porciones de la cadena original */
         String s1 = s.substring(0, 7); // tomamos desde el caracter 0 al 7
         String s2 = s.substring(8,11); // tomamos desde el caracter 8 al 11
@@ -216,9 +228,9 @@ public class HolaMundo {
 
         System.out.println(s1);
         System.out.println(s2);
-        System.out.println(s3)
+        System.out.println(s3);
 
-        /* Prefijos y Subfijos */;
+        /* Prefijos y Subfijos */
         // si una cadena comienza con un determinado prefijo
         boolean b1 = s.startsWith("Esto es"); // true
         boolean b2 = s.startsWith("A"); // false
@@ -245,7 +257,7 @@ public class HolaMundo {
 
         // operaciones con el tipo double
         double d = 45.3;
-        String sDouble = Double.toHexString(d); // convertimos de double a string
+        String sDouble = Double.toString(d); // convertimos de double a string
         double d2 = Double.parseDouble(sDouble); // convertir de string a double
 
         System.out.println(k2+", "+d2);
@@ -271,8 +283,8 @@ public class HolaMundo {
 
         /* La clase StringTokenizer */
         // Utilizando la clase StringTokenizer podemos separar una cadena en tokens delimitados por un separador asignado..
-        String ss = "Juan|Marcos|Carlos|Matias";
-        StringTokenizer st = new StringTokenizer(ss, "|");
+        String sss = "Juan|Marcos|Carlos|Matias";
+        StringTokenizer st = new StringTokenizer(sss, "|");
         String tok;
         while (st.hasMoreTokens()) {
             tok = st.nextToken(); // asigna el siguinete token al string tok|1
@@ -288,8 +300,25 @@ public class HolaMundo {
             System.out.println("No son iguales");
         } // deberia retornar que no son iguales
 
-
         saludar("Tobias"); // Invocacion de la funcion saludar
+
+        /* NUMEROS ALEATORIOS */
+        Random numRandoms = new Random();
+        int aleatorio = numRandoms.nextInt(100 + 1);
+        System.out.println("Numero aleatorio: "+aleatorio);
+
+        /* REDONDEO y  TRUNCADO */
+        float valorFloat = 0.5F;
+        // Redondear (valor significativo mas cercano)
+        int  redondeoX= Math.round(valorFloat);
+        System.out.println("Redondeo: "+redondeoX);
+
+        // Truncar (valor sin decimales)
+        String patron = "#"; // quita punto decimal
+        DecimalFormat decimalFormat = new DecimalFormat(patron);
+        var truncado = decimalFormat.format(valorFloat);
+        System.out.println("Truncado: "+truncado);
+
 
         entrada.close(); // cerramos la instancia entrada del objeto scanner
     }
