@@ -1,0 +1,4 @@
+# elementos ignorados
+
+.vscode/
+pseudos/
